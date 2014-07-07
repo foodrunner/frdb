@@ -1,0 +1,33 @@
+{
+  "name": "frdb",
+  "version": "1.0.0",
+  "description": "All in one in-memory database for Node",
+  "main": "lib/frtrie.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "rbush": "=1.3.2",
+    "underscore": "=1.6.0",
+    "natural": "=0.1.27"
+  },
+  "devDependencies": {
+    "jasmine-node": ">= 1.14",
+    "coffee-script": ">= 1.7"
+  },
+   "keywords": [
+    "database",
+    "in-memory",
+    "performance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/foodrunner/frdb.git"
+  },
+  "author": "Tony Le <lvtien.dev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/foodrunner/frdb/issues"
+  },
+  "homepage": "https://github.com/foodrunner/frdb"
+}
