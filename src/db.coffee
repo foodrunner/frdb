@@ -31,6 +31,12 @@ class DB
       r = @indexes[option].search(value)
       return empty if r.count == 0
       results.push(r)
-    (@idLookup[id] for id, _ of Result.intersect(results).ids).sort(sortFn)
+    (clone(@idLookup[id]) for id, _ of Result.intersect(results).ids).sort(sortFn)
+
+clone = (old) ->
+  n = (if (old instanceof Array) then [] else {})
+  for i, v of old
+    n[i] = if typeof v is "object" then clone(v) else v
+  return n
 
 module.exports = DB
