@@ -1,8 +1,8 @@
 {
   "name": "frdb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "All in one in-memory database for Node",
-  "main": "lib/frtrie.js",
+  "main": "lib/db.js",
   "scripts": {
     "test": "make test"
   },
