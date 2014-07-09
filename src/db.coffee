@@ -33,6 +33,9 @@ class DB
       results.push(r)
     (clone(@idLookup[id]) for id, _ of Result.intersect(results).ids).sort(sortFn)
 
+  list: (sortFn = null) ->
+    (clone(object) for id, object of @idLookup).sort(sortFn)
+
 clone = (old) ->
   n = (if (old instanceof Array) then [] else {})
   for i, v of old

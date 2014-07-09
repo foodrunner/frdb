@@ -11,9 +11,11 @@ class TextIndex
   constructor: () ->
     @set = new SetIndex()
 
-  add: (id, text) ->
-    tokens = TextIndex.normalize(text).split(' ')
-    @index(id, word) for word in tokens
+  add: (id, texts) ->
+    texts = if texts instanceof Array then texts else [texts]
+    for text in texts
+      tokens = TextIndex.normalize(text).split(' ')
+      @index(id, word) for word in tokens
     null
 
   search: (text) ->
