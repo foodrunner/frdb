@@ -1,4 +1,4 @@
-Result = require('../result')
+IDSet = require('../id_set')
 PolygonIndex = require('rbush')
 
 # A polygon looks like this {id: 1, group: 1, location: [x, y], points: [[x, y], [x1, y1]]}
@@ -11,8 +11,8 @@ PolygonIndex::add = (id, polygon) ->
 PolygonIndex::search = (target) ->
   node = @data
   groups = {}
-  result = new Result()
-  return result unless @_inside(target, node.bbox)
+  set = new IDSet()
+  return set unless @_inside(target, node.bbox)
   nodesToSearch = []
   while node?
     for child in node.children
@@ -27,8 +27,8 @@ PolygonIndex::search = (target) ->
       else if @_inside(target, childBBox)
         nodesToSearch.push(child);
     node = nodesToSearch.pop()
-  result.add(groups[group].polygon.id) for group of groups
-  result
+  set.add(groups[group].polygon.id) for group of groups
+  set
 
 PolygonIndex::toBBox = (polygon) ->
   minX = polygon.points[0][0]

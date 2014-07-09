@@ -1,5 +1,5 @@
 natural = require('natural')
-Result = require('../result')
+IDSet = require('../id_set')
 SetIndex = require('./set_index')
 
 normalization_pattern = new RegExp('[^a-zA-Z ]', 'g')
@@ -20,7 +20,7 @@ class TextIndex
 
   search: (text) ->
     tokens = TextIndex.normalize(text).split(' ')
-    Result.intersect(@set.search(TextIndex.variants(token)) for token in tokens)
+    IDSet.intersect(@set.search(TextIndex.variants(token)) for token in tokens)
 
   index: (id, word) ->
     return if blacklist[word]?

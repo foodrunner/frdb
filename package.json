@@ -1,6 +1,6 @@
 {
   "name": "frdb",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "All in one in-memory database for Node",
   "main": "lib/db.js",
   "scripts": {

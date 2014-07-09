@@ -1,3 +1,4 @@
+IDSet = require('./id_set')
 Result = require('./result')
 SetIndex = require('./indexes/set_index')
 TrieIndex = require('./indexes/trie_index')
@@ -24,17 +25,20 @@ class DB
     @indexes[name].add(item.id, value) for name, value of index
     null
 
-  search: (options, sortFn = null) ->
-    results = []
+  search: (options) ->
+    idsets = []
     for option, value of options
-      return empty unless @indexes[option]?
+      return new Result(empty, @) unless @indexes[option]?
       r = @indexes[option].search(value)
-      return empty if r.count == 0
-      results.push(r)
-    (clone(@idLookup[id]) for id, _ of Result.intersect(results).ids).sort(sortFn)
+      return new Result(empty, @) if r.count == 0
+      idsets.push(r)
+    new Result(Object.keys(IDSet.intersect(idsets).ids), @)
 
-  list: (sortFn = null) ->
-    (clone(object) for id, object of @idLookup).sort(sortFn)
+  list: () ->
+    new Result(Object.keys(@idLookup), @)
+
+  get: (id) ->
+    return clone(@idLookup[id])
 
 clone = (old) ->
   n = (if (old instanceof Array) then [] else {})

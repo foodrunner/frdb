@@ -1,4 +1,4 @@
-Result = require('../result')
+IDSet = require('../id_set')
 
 normalization_pattern = new RegExp('[^a-zA-Z ]', 'g')
 spaces = new RegExp(' ', 'g')
@@ -21,12 +21,12 @@ class TrieIndex
     for c in TrieIndex.normalize(value).replace(spaces, '')
       return empty unless node[c]
       node = node[c]
-    node['$'] || new Result()
+    node['$'] || new IDSet()
 
   index: (id, word) ->
     node = @root
     for c in word
-      node[c] = {'$': new Result()} unless node[c]
+      node[c] = {'$': new IDSet()} unless node[c]
       node[c]['$'].add(id)
       node = node[c]
     return

@@ -1,17 +1,17 @@
-Result = require ('../../src/result')
+IDSet = require ('../../src/id_set')
 
-describe 'result', ->
+describe 'IDSet', ->
   describe 'add', ->
 
     it 'nothing for existing id', ->
-      result = new Result()
+      result = new IDSet()
       result.add('1')
       result.add('1')
       expect(result.count).toEqual(1)
       expect(result.ids['1']).toEqual(true)
 
     it 'id and increase count', ->
-      result = new Result()
+      result = new IDSet()
       result.add('1')
       result.add('2')
       expect(result.count).toEqual(2)
