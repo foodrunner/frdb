@@ -5,7 +5,10 @@ class Result
 
   sort: (sortFn) ->
     db = @db
-    idsSortFn = (i, j) -> sortFn(db.idLookup[i], db.idLookup[j])
+    if sortFn?
+      idsSortFn = (i, j) -> sortFn(db.idLookup[i], db.idLookup[j])
+    else
+      idsSortFn = null
     @ids.sort(idsSortFn)
     @
 
