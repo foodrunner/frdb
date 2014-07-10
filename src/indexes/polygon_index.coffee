@@ -3,9 +3,11 @@ PolygonIndex = require('rbush')
 
 # A polygon looks like this {id: 1, group: 1, location: [x, y], points: [[x, y], [x1, y1]]}
 
-PolygonIndex::add = (id, polygon) ->
-  polygon.id = id
-  @insert(polygon)
+PolygonIndex::add = (group_id, polygons) ->
+  polygons = [polygons] unless polygons instanceof Array
+  for polygon in polygons
+    polygon.group = group_id
+    @insert(polygon)
   null
 
 PolygonIndex::search = (target) ->
