@@ -41,6 +41,5 @@ class DB
   get: (id) ->
     return Helper.clone(@idLookup[id])
 
-  helper: () -> Helper
-
 module.exports = DB
+module.exports.Helper = Helper
