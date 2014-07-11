@@ -25,7 +25,7 @@ class Helper
   @clone = (old) ->
     n = (if (old instanceof Array) then [] else {})
     for i, v of old
-      n[i] = if typeof v is "object" then clone(v) else v
+      n[i] = if typeof v is "object" then @clone(v) else v
     return n
 
 module.exports = Helper
