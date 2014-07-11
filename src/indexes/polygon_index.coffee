@@ -1,4 +1,5 @@
 IDSet = require('../id_set')
+Helper = require('../helper')
 PolygonIndex = require('rbush')
 
 # A polygon looks like this {id: 1, group: 1, location: [x, y], points: [[x, y], [x1, y1]]}
@@ -20,7 +21,7 @@ PolygonIndex::search = (target) ->
     for child in node.children
       childBBox = if node.leaf then @toBBox(child) else child.bbox
       if node.leaf?
-        d = @_distance(child.location, target)
+        d = Helper.distanceBetween(child.location, target)
         if !groups[child.group]? 
           groups[child.group] = {dist: d, polygon: child} 
         else if @_further(groups[child.group].dist, d) and @_hitByRaycast(target, child)
@@ -52,24 +53,7 @@ PolygonIndex::_inside = (target, bbox) ->
 
 PolygonIndex::_hitByRaycast = (target, polygon) ->
   return false unless @_inside(target, @toBBox(polygon))
-  hit = false
-  l = polygon.points.length
-  i = 0
-  j = l - 1
-  x = target[0]
-  y = target[1]
-  while i < l
-    pointi = polygon.points[i]
-    pointj = polygon.points[j]
-    hit = !hit if (pointi[1] >= y) != (pointj[1] >= y) and (x <= (pointj[0]-pointi[0])*(y-pointi[1])/(pointj[1]-pointi[1])+pointi[0])
-    j = i
-    i++
-  hit
-
-PolygonIndex::_distance = (point, target) ->
-  x = point[0] - target[0]
-  y = point[1] - target[1]
-  Math.sqrt(x * x + y * y)
+  Helper.hitByRaycast(target, polygon.points)
 
 PolygonIndex::_further = (current, target) ->
   return false if current < 1000

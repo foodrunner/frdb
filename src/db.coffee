@@ -1,5 +1,6 @@
 IDSet = require('./id_set')
 Result = require('./result')
+Helper = require('./helper')
 SetIndex = require('./indexes/set_index')
 TrieIndex = require('./indexes/trie_index')
 TextIndex = require('./indexes/text_index')
@@ -38,12 +39,8 @@ class DB
     new Result(Object.keys(@idLookup), @)
 
   get: (id) ->
-    return clone(@idLookup[id])
+    return Helper.clone(@idLookup[id])
 
-clone = (old) ->
-  n = (if (old instanceof Array) then [] else {})
-  for i, v of old
-    n[i] = if typeof v is "object" then clone(v) else v
-  return n
+  helper: () -> Helper
 
 module.exports = DB

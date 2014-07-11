@@ -17,4 +17,7 @@ class Result
     count = @ids.length unless count?
     return (@db.get(id) for id in @ids.slice(offset, offset + count))
 
+  contain: (id) ->
+    @ids.indexOf(id) isnt -1
+
 module.exports = Result
