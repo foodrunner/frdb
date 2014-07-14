@@ -39,7 +39,8 @@ class DB
     new Result(Object.keys(@idLookup), @)
 
   get: (id) ->
-    return Helper.clone(@idLookup[id])
+    return null unless @idLookup[id]?
+    Helper.clone(@idLookup[id])
 
 module.exports = DB
 module.exports.Helper = Helper
