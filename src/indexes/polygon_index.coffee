@@ -30,7 +30,7 @@ PolygonIndex::search = (target) ->
       else if @_inside(target, childBBox)
         nodesToSearch.push(child);
     node = nodesToSearch.pop()
-  set.add(groups[group].polygon.id) for group of groups
+  set.add(group) for group of groups
   set
 
 PolygonIndex::toBBox = (polygon) ->

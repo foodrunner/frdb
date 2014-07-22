@@ -22,7 +22,7 @@ describe 'PolygonIndex', ->
       result = rmap.search([2.5, 0.5])
       expect(result.count).toEqual(2)
 
-    it 'returns only closest polygon from the same group', ->
+    it 'returns only the group ids', ->
       rmap = new PolygonIndex()
       p1 = {id: '1b', location: [1, 1], points: [[1, 0], [2, 1], [0, 2], [2, 2], [3, 0]]}
       p2 = {id: '2b', location: [3, 1], points: [[2, 0], [2, 2], [4, 2], [4, 0], [2, 0]]}
@@ -30,4 +30,4 @@ describe 'PolygonIndex', ->
       spyOn(rmap, '_further').andReturn(true)
       result = rmap.search([2.5, 0.5])
       expect(result.count).toEqual(1)
-      expect(result.ids['2b']).toEqual(true)
+      expect(result.ids['1m']).toEqual(true)
